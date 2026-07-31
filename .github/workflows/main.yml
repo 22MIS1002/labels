@@ -45,16 +45,16 @@ jobs:
             const TYPES           = ['QUESTION', 'DEFECT'];
             const RANKINGS        = ['MAJOR', 'MINOR'];
             const CLASSIFICATIONS = [
-              'MISSING :Required information or implementation is absent.',
-              'EXTRA/SUPERFLUOUS :Contains unnecessary code, logic, or content.',
-              'AMBIGUOUS :The implementation or documentation is unclear or open to multiple interpretations.',
-              'INCONSISTENT :Does not match existing behavior, documentation, or coding conventions.',
-              'IMPROVEMENT DESIRABLE :Works correctly but could be improved for readability, maintainability, or quality.',
-              'NOT CONFORMING TO STANDARDS :Does not follow project coding standards, guidelines, or best practices.',
-              'RISK-PRONE :May introduce bugs, security issues, performance problems, or future maintenance risks.',
-              'FACTUALLY INCORRECT :The implementation or accompanying information is technically incorrect.',
-              'NOT IMPLEMENTABLE :The suggested change cannot be implemented as requested.',
-              'EDITORIAL :Minor wording, spelling, grammar, formatting, or documentation issue.',
+              'MISSING',
+              'EXTRA/SUPERFLUOUS',
+              'AMBIGUOUS',
+              'INCONSISTENT',
+              'IMPROVEMENT DESIRABLE',
+              'NOT CONFORMING TO STANDARDS',
+              'RISK-PRONE',
+              'FACTUALLY INCORRECT',
+              'NOT IMPLEMENTABLE',
+              'EDITORIAL',
             ];
  
             // Match every [...] token in the normalized body
