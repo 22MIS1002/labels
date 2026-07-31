@@ -14,13 +14,7 @@ questions
 
 validation much be done 
 
-Minor wording, spelling, grammar, formatting, or documentation issue.
 
-The suggested change cannot be implemented as requested.
-
-The implementation or accompanying information is technically incorrect.
-
-May introduce bugs, security issues, performance problems, or future maintenance risks.
 
 May introduce bugs, security issues, performance problems, or future maintenance risks.
 
