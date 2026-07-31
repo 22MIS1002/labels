@@ -157,8 +157,8 @@ jobs:
  
             Please add exactly one classification label to your review comment.
  
-            | Label | Description |
-            |---|---|
+            | Label |
+            |---|
             ${classificationRows}`;
  
             function statusTable(type, ranking, classification) {
