@@ -44,7 +44,7 @@ jobs:
             // ── 4. Extract labels ─────────────────────────────────────────────
             const TYPES           = ['QUESTION', 'DEFECT'];
             const RANKINGS        = ['MAJOR', 'MINOR'];
-            const CLASSIFICATIONS = [{
+            const CLASSIFICATIONS = {
               'MISSING': 'Required information or implementation is absent.',
               'EXTRA/SUPERFLUOUS': 'Contains unnecessary code, logic, or content.',
               'AMBIGUOUS': 'The implementation or documentation is unclear or open to multiple interpretations.',
@@ -55,7 +55,7 @@ jobs:
               'FACTUALLY INCORRECT': 'The implementation or accompanying information is technically incorrect.',
               'NOT IMPLEMENTABLE': 'The suggested change cannot be implemented as requested.',
               'EDITORIAL': 'Minor wording, spelling, grammar, formatting, or documentation issue.',
-            }];
+            };
  
             // Match every [...] token in the normalized body
             const tokenRe = /\[([^\]]+)\]/g;
