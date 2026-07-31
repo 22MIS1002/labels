@@ -147,8 +147,8 @@ jobs:
             |---|---|
             | \`[MAJOR]\` | Must be fixed before merge |
             | \`[MINOR]\` | Should be fixed, non-blocking |`;
-
-            const classificationRows =  Object.entries(CLASSIFICATIONS)
+ 
+            const classificationRows = Object.entries(CLASSIFICATIONS)
               .map(([label, description]) => `| \`[${label}]\` | ${description} |`)
               .join('\n');
  
