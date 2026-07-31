@@ -45,16 +45,16 @@ jobs:
             const TYPES           = ['QUESTION', 'DEFECT'];
             const RANKINGS        = ['MAJOR', 'MINOR'];
             const CLASSIFICATIONS = [
-              'MISSING',
-              'EXTRA/SUPERFLUOUS',
-              'AMBIGUOUS',
-              'INCONSISTENT',
-              'IMPROVEMENT DESIRABLE',
-              'NOT CONFORMING TO STANDARDS',
-              'RISK-PRONE',
-              'FACTUALLY INCORRECT',
-              'NOT IMPLEMENTABLE',
-              'EDITORIAL',
+              { label: 'MISSING', description: 'Required information or implementation is absent.' },
+              { label: 'EXTRA/SUPERFLUOUS', description: 'Contains unnecessary code, logic, or content.' },
+              { label: 'AMBIGUOUS', description: 'The implementation or documentation is unclear or open to multiple interpretations.' },
+              { label: 'INCONSISTENT', description: 'Does not match existing behavior, documentation, or coding conventions.' },
+              { label: 'IMPROVEMENT DESIRABLE', description: 'Works correctly but could be improved for readability, maintainability, or quality.' },
+              { label: 'NOT CONFORMING TO STANDARDS', description: 'Does not follow project coding standards, guidelines, or best practices.' },
+              { label: 'RISK-PRONE', description: 'May introduce bugs, security issues, performance problems, or future maintenance risks.' },
+              { label: 'FACTUALLY INCORRECT', description: 'The implementation or accompanying information is technically incorrect.' },
+              { label: 'NOT IMPLEMENTABLE', description: 'The suggested change cannot be implemented as requested.' },
+              { label: 'EDITORIAL', description: 'Minor wording, spelling, grammar, formatting, or documentation issue.' },
             ];
  
             // Match every [...] token in the normalized body
@@ -69,7 +69,7 @@ jobs:
  
             const typeLabel           = TYPES.find(t => hasType(t)) || null;
             const rankingLabel        = RANKINGS.find(r => hasType(r)) || null;
-            const classificationLabel = CLASSIFICATIONS.find(c => hasType(c)) || null;
+            const classificationLabel = CLASSIFICATIONS.map(c => c.label).find(c => hasType(c)) || null;
  
             core.info(`Tokens found: ${JSON.stringify(tokens)}`);
             core.info(`Type: ${typeLabel}, Ranking: ${rankingLabel}, Classification: ${classificationLabel}`);
@@ -149,7 +149,7 @@ jobs:
             | \`[MINOR]\` | Should be fixed, non-blocking |`;
  
             const classificationRows = CLASSIFICATIONS
-              .map(c => `| \`[${c}]\` | |`)
+              .map(c => `| \`[${c.label}]\` | ${c.description} |`)
               .join('\n');
  
             const CLASSIFICATION_TABLE = `\
