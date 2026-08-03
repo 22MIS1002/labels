@@ -65,11 +65,13 @@ jobs:
               tokens.push(m[1].trim().toUpperCase());
             }
  
-            const hasType = label => tokens.includes(label);
- 
-            const typeLabel           = TYPES.find(t => hasType(t)) || null;
-            const rankingLabel        = RANKINGS.find(r => hasType(r)) || null;
-            const classificationLabel = CLASSIFICATIONS.find(c => hasType(c)) || null;
+            const hasLabel = (label) => tokens.includes(label);
+            const typeLabels           = TYPES.filter(hasLabel);
+            const rankingLabels        = RANKINGS.filter(hasLabel);
+            const classificationLabels = CLASSIFICATIONS.filter(hasLabel);
+            const typeLabel           = typeLabels.length === 1 ? typeLabels[0] : null;
+            const rankingLabel        = rankingLabels.length === 1 ? rankingLabels[0] : null;
+            const classificationLabel = classificationLabels.length === 1 ? classificationLabels[0] : null;
  
             core.info(`Tokens found: ${JSON.stringify(tokens)}`);
             core.info(`Type: ${typeLabel}, Ranking: ${rankingLabel}, Classification: ${classificationLabel}`);
