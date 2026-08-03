@@ -13,3 +13,9 @@ ranking
 questions 
 
 validation much be done 
+
+Works correctly but could be improved for readability, maintainability, or quality.
+
+Does not match existing behavior, documentation, or coding conventions.
+
+The implementation or documentation is unclear or open to multiple interpretations.
