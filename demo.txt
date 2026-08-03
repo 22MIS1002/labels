@@ -14,12 +14,6 @@ questions
 
 validation much be done 
 
-
-
-May introduce bugs, security issues, performance problems, or future maintenance risks.
-
-Does not follow project coding standards, guidelines, or best practices.
-
 Works correctly but could be improved for readability, maintainability, or quality.
 
 Does not match existing behavior, documentation, or coding conventions.
