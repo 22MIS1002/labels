@@ -44,13 +44,7 @@ Required information or implementation is absent.Does not follow project coding 
 
 Works correctly but could be improved for readability, maintainability, or quality.
 
-Does not match existing behavior, documentation, or coding conventions.
 
-The implementation or documentation is unclear or open to multiple interpretations.
-
-Required information or implementation is absent.
-
-The implementation or documentation is unclear or open to multiple interpretations.
 
 
 
@@ -101,6 +95,16 @@ Works correctly but could be improved for readability, maintainability, or quali
 
 new demo file for labels 
 
+
+Does not match existing behavior, documentation, or coding conventions.
+
+The implementation or documentation is unclear or open to multiple interpretations.
+
+Required information or implementation is absent.
+
+The implementation or documentation is unclear or open to multiple interpretations.
+
+
 iam new to this labels
 
 i need all the labels to be entered 
@@ -122,6 +126,15 @@ defect
 classification
 
 ranking 
+
+
+Does not match existing behavior, documentation, or coding conventions.
+
+The implementation or documentation is unclear or open to multiple interpretations.
+
+Required information or implementation is absent.
+
+The implementation or documentation is unclear or open to multiple interpretations.
 
 questions defect
 
