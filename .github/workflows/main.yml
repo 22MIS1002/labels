@@ -1,0 +1,244 @@
+name: Review Comment Classifier
+ 
+on:
+  pull_request_review_comment:
+    types:
+      - created
+      - edited
+ 
+permissions:
+  pull-requests: write
+ 
+jobs:
+  classify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Classify Review Comment
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const comment  = context.payload.comment;
+            const pr       = context.payload.pull_request;
+            const owner    = context.repo.owner;
+            const repo     = context.repo.repo;
+            const commentId = comment.id;
+ 
+            // ── 1. Ignore bot comments ────────────────────────────────────────
+            if (comment.user.login === 'github-actions[bot]') {
+              core.info('Skipping: comment is from github-actions[bot]');
+              return;
+            }
+ 
+            // ── 2. Ignore replies ─────────────────────────────────────────────
+            if (comment.in_reply_to_id != null) {
+              core.info('Skipping: comment is a reply');
+              return;
+            }
+ 
+            // ── 3. Normalize Markdown saved-reply bold labels ─────────────────
+            //      **[LABEL]**  →  [LABEL]
+            const rawBody    = comment.body || '';
+            const normalized = rawBody.replace(/\*\*\[([^\]]+)\]\*\*/g, '[$1]');
+ 
+            // ── 4. Extract labels ─────────────────────────────────────────────
+            const TYPES           = ['QUESTION', 'DEFECT'];
+            const RANKINGS        = ['MAJOR', 'MINOR'];
+            const CLASSIFICATIONS = [
+              'MISSING',
+              'EXTRA/SUPERFLUOUS',
+              'AMBIGUOUS',
+              'INCONSISTENT',
+              'IMPROVEMENT DESIRABLE',
+              'NOT CONFORMING TO STANDARDS',
+              'RISK-PRONE',
+              'FACTUALLY INCORRECT',
+              'NOT IMPLEMENTABLE',
+              'EDITORIAL',
+            ];
+ 
+            // Match every [...] token in the normalized body
+            const tokenRe = /\[([^\]]+)\]/g;
+            const tokens  = [];
+            let m;
+            while ((m = tokenRe.exec(normalized)) !== null) {
+              tokens.push(m[1].trim().toUpperCase());
+            }
+ 
+            const hasType = label => tokens.includes(label);
+ 
+            const typeLabel           = TYPES.find(t => hasType(t)) || null;
+            const rankingLabel        = RANKINGS.find(r => hasType(r)) || null;
+            const classificationLabel = CLASSIFICATIONS.find(c => hasType(c)) || null;
+ 
+            core.info(`Tokens found: ${JSON.stringify(tokens)}`);
+            core.info(`Type: ${typeLabel}, Ranking: ${rankingLabel}, Classification: ${classificationLabel}`);
+ 
+            // ── 5. Hidden marker used in every bot comment ────────────────────
+            const MARKER = `<!-- review-classifier:${commentId} -->`;
+ 
+            // ── 6. Helpers ────────────────────────────────────────────────────
+ 
+            /** Find the existing bot reminder for this comment, if any. */
+            async function findBotReminder() {
+              const allComments = await github.paginate(
+                github.rest.pulls.listReviewComments,
+                { owner, repo, pull_number: pr.number, per_page: 100 }
+              );
+              return allComments.find(
+                c => c.user.login === 'github-actions[bot]' && c.body.includes(MARKER)
+              ) || null;
+            }
+ 
+            /** Delete the bot reminder if it exists. */
+            async function deleteBotReminder() {
+              const existing = await findBotReminder();
+              if (existing) {
+                await github.rest.pulls.deleteReviewComment({ owner, repo, comment_id: existing.id });
+                core.info(`Deleted bot reminder ${existing.id}`);
+              }
+            }
+ 
+            /** Create or update the bot reminder with the given body. */
+            async function upsertBotReminder(body) {
+              const full = `${body}\n\n${MARKER}`;
+              const existing = await findBotReminder();
+              if (!existing) {
+                // Create as a reply to the original comment
+                await github.rest.pulls.createReplyForReviewComment({
+                  owner,
+                  repo,
+                  pull_number: pr.number,
+                  comment_id: commentId,
+                  body: full,
+                });
+                core.info('Created bot reminder');
+              } else if (existing.body !== full) {
+                await github.rest.pulls.updateReviewComment({
+                  owner,
+                  repo,
+                  comment_id: existing.id,
+                  body: full,
+                });
+                core.info('Updated bot reminder');
+              } else {
+                core.info('Bot reminder unchanged – skipping update');
+              }
+            }
+ 
+            // ── 7. Build reminder body ────────────────────────────────────────
+ 
+            const TYPE_TABLE = `\
+            ### ⚠️ Missing: **Type**
+ 
+            Please add exactly one type label to your review comment.
+ 
+            | Label | Meaning |
+            |---|---|
+            | \`[QUESTION]\` | You have a question about the code |
+            | \`[DEFECT]\` | You identified a defect |`;
+ 
+            const RANKING_TABLE = `\
+            ### ⚠️ Missing: **Ranking**
+ 
+            Please add exactly one ranking label to your review comment.
+ 
+            | Label | Meaning |
+            |---|---|
+            | \`[MAJOR]\` | Must be fixed before merge |
+            | \`[MINOR]\` | Should be fixed, non-blocking |`;
+ 
+            const classificationRows = CLASSIFICATIONS
+              .map(c => `| \`[${c}]\` | |`)
+              .join('\n');
+ 
+            const CLASSIFICATION_TABLE = `\
+            ### ⚠️ Missing: **Classification**
+ 
+            Please add exactly one classification label to your review comment.
+ 
+            | Label |
+            |---|
+            ${classificationRows}`;
+ 
+            function statusTable(type, ranking, classification) {
+              const check = v => v ? `✅ \`[${v}]\`` : '❌ Missing';
+              return `\
+            ---
+            **Current Status**
+ 
+            | Field | Value |
+            |---|---|
+            | Type | ${check(type)} |
+            | Ranking | ${check(ranking)} |
+            | Classification | ${check(classification)} |`;
+            }
+ 
+            // ── 8. Determine validation case and act ─────────────────────────
+ 
+            // Case 1 – No labels at all
+            if (!typeLabel && !rankingLabel && !classificationLabel) {
+              core.info('Case 1: No labels');
+              await upsertBotReminder(TYPE_TABLE);
+              return;
+            }
+ 
+            // Case 2 – QUESTION
+            if (typeLabel === 'QUESTION') {
+              core.info('Case 2: QUESTION');
+              await deleteBotReminder();
+              return;
+            }
+ 
+            // DEFECT cases
+            if (typeLabel === 'DEFECT') {
+ 
+              // Case 6 – DEFECT + Ranking + Classification → all good
+              if (rankingLabel && classificationLabel) {
+                core.info('Case 6: DEFECT complete');
+                await deleteBotReminder();
+                return;
+              }
+ 
+              // Case 3 – DEFECT only
+              if (!rankingLabel && !classificationLabel) {
+                core.info('Case 3: DEFECT only');
+                const body = [
+                  RANKING_TABLE,
+                  '',
+                  CLASSIFICATION_TABLE,
+                  '',
+                  statusTable('DEFECT', null, null),
+                ].join('\n');
+                await upsertBotReminder(body);
+                return;
+              }
+ 
+              // Case 4 – DEFECT + Ranking only
+              if (rankingLabel && !classificationLabel) {
+                core.info('Case 4: DEFECT + Ranking');
+                const body = [
+                  CLASSIFICATION_TABLE,
+                  '',
+                  statusTable('DEFECT', rankingLabel, null),
+                ].join('\n');
+                await upsertBotReminder(body);
+                return;
+              }
+ 
+              // Case 5 – DEFECT + Classification only
+              if (!rankingLabel && classificationLabel) {
+                core.info('Case 5: DEFECT + Classification');
+                const body = [
+                  RANKING_TABLE,
+                  '',
+                  statusTable('DEFECT', null, classificationLabel),
+                ].join('\n');
+                await upsertBotReminder(body);
+                return;
+              }
+            }
+ 
+            // Fallback – unrecognised combination, show type table
+            core.info('Fallback: unrecognised label combination');
+            await upsertBotReminder(TYPE_TABLE);
