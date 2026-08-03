@@ -151,7 +151,7 @@ jobs:
             | \`[MINOR]\` | Should be fixed, non-blocking |`;
  
             const classificationRows = CLASSIFICATIONS
-              .map(c => `| \`[${c}]\` | |`)
+              .map(c => `| \`[${c}]\` |`)
               .join('\n');
  
             const CLASSIFICATION_TABLE = `\
