@@ -40,6 +40,55 @@ questions
 validation much be done 
 
 
+The implementation or documentation is unclear or open to multiple interpretations.
+
+Required information or implementation is absent.
+
+The implementation or documentation is unclear or open to multiple interpretations.
+
+
+
+Does not match existing behavior, documentation, or coding conventions.
+
+The implementation or documentation is unclear or open to multiple interpretations.
+
+Required information or implementation is absent.
+
+The implementation or documentation is unclear or open to multiple interpretations.
+
+questions defect
+
+classification
+
+ranking 
+
+questions 
+
+Does not follow project coding standards, guidelines, or best practices.
+
+Works correctly but could be improved for readability, maintainability, or quality.
+
+Does not match existing behavior, documentation, or coding conventions.
+
+The implementation or documentation is unclear or open to multiple interpretations.
+
+defect
+
+classification
+
+ranking 
+
+questions defect
+
+classification
+
+ranking 
+
+questions 
+
+validation much be done 
+
+
 
 defect
 
@@ -216,6 +265,59 @@ Works correctly but could be improved for readability, maintainability, or quali
 
 Does not match existing behavior, documentation, or coding conventions.
 
+
+
+iam new to this labels
+
+i need all the labels to be entered 
+
+defect
+
+classification
+
+ranking 
+
+questions 
+
+validation much be done 
+
+
+
+defect
+
+classification
+
+ranking 
+
+
+Does not match existing behavior, documentation, or coding conventions.
+
+The implementation or documentation is unclear or open to multiple interpretations.
+
+Required information or implementation is absent.
+
+The implementation or documentation is unclear or open to multiple interpretations.
+
+questions defect
+
+classification
+
+ranking 
+
+questions 
+
+Does not follow project coding standards, guidelines, or best practices.
+
+Works correctly but could be improved for readability, maintainability, or quality.
+
+
+Does not match existing behavior, documentation, or coding conventions.
+
+The implementation or documentation is unclear or open to multiple interpretations.
+
+Required information or implementation is absent.
+
+The implementation or documentation is unclear or open to multiple interpretations.
 
 
 iam new to this labels
