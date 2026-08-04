@@ -56,6 +56,10 @@ jobs:
               'NOT IMPLEMENTABLE',
               'EDITORIAL',
             ];
+            // Strip fenced code blocks and inline code before scanning for tokens
+            const scanBody  = normalized
+              .replace(/```[\s\S]*?```/g, '')   // fenced code blocks
+              .replace(/`[^`\n]+`/g, '');       // inline code spans
  
             // Match every [...] token in the normalized body
             const tokenRe = /\[([^\]]+)\]/g;
