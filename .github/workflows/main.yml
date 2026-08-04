@@ -63,7 +63,7 @@ jobs:
             const tokenRe = /\[([^\]]+)\]/g;
             const tokens  = [];
             let m;
-            while ((m = tokenRe.exec(normalized)) !== null) {
+            while ((m = tokenRe.exec(scanBody)) !== null) {
               tokens.push(m[1].trim().toUpperCase());
             }
  
