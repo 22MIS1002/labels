@@ -165,23 +165,6 @@ classification
 
 ranking 
 
-questions 
-
-validation much be done 
-
-defect
-
-defect
-
-classification
-
-ranking 
-
-questions 
-
-validation much be done 
-
-defect
 
 
 classification
@@ -217,6 +200,40 @@ The implementation or documentation is unclear or open to multiple interpretatio
 Required information or implementation is absent.
 
 
+questions 
+
+validation much be done 
+
+defect
+
+defect
+
+classification
+
+ranking 
+
+questions 
+
+validation much be done 
+
+defect
+questions 
+
+validation much be done 
+
+defect
+
+defect
+
+classification
+
+ranking 
+
+questions 
+
+validation much be done 
+
+defect
 
 
 Does not follow project coding standards, guidelines, or best practices.
