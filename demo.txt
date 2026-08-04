@@ -1,52 +1,66 @@
-new demo file for labels 
 
-iam new to this labels
 
-i need all the labels to be entered 
+The implementation or documentation is unclear or open to multiple interpretations.
 
-defect
+Required information or implementation is absent.
+
+The implementation or documentation is unclear or open to multiple interpretations.
+
+
+The implementation or documentation is unclear or open to multiple interpretations.
+
+Required information or implementation is absent.
+
+The implementation or documentation is unclear or open to multiple interpretations.
+
+questions defect
 
 classification
-
-ranking 
-
-questions 
-
-validation much be done 
-
-
-Required information or implementation is absent.
-Does not match existing behavior, documentation, or coding conventions.
-
 The implementation or documentation is unclear or open to multiple interpretations.
 
 Required information or implementation is absent.
 
 The implementation or documentation is unclear or open to multiple interpretations.
 
-
-iam new to this labels
-
-i need all the labels to be entered 
-
-defect
+questions defect
 
 classification
-
-ranking 
-
-questions 
-
-validation much be done 
-
-
 The implementation or documentation is unclear or open to multiple interpretations.
 
 Required information or implementation is absent.
 
 The implementation or documentation is unclear or open to multiple interpretations.
 
+questions defect
 
+classification
+The implementation or documentation is unclear or open to multiple interpretations.
+
+Required information or implementation is absent.
+
+The implementation or documentation is unclear or open to multiple interpretations.
+
+questions defect
+
+classification
+The implementation or documentation is unclear or open to multiple interpretations.
+
+Required information or implementation is absent.
+
+The implementation or documentation is unclear or open to multiple interpretations.
+
+questions defect
+
+classification
+The implementation or documentation is unclear or open to multiple interpretations.
+
+Required information or implementation is absent.
+
+The implementation or documentation is unclear or open to multiple interpretations.
+
+questions defect
+
+classification
 
 Does not match existing behavior, documentation, or coding conventions.
 
