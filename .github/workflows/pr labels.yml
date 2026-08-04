@@ -1,0 +1,120 @@
+name: PR Label Check
+
+on:
+  pull_request:
+    types:
+      - labeled
+      - unlabeled
+      - opened
+
+permissions:
+  pull-requests: write
+
+jobs:
+  check-label:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check PR Labels
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const pr    = context.payload.pull_request;
+            const owner = context.repo.owner;
+            const repo  = context.repo.repo;
+
+            // ── 1. Get current PR labels ──────────────────────────────────────
+            const prLabels = pr.labels.map(l => l.name.toLowerCase());
+            core.info(`Labels on PR: ${JSON.stringify(prLabels)}`);
+
+            // ── 2. Check if at least one label is present ─────────────────────
+            const hasLabel = prLabels.length > 0;
+
+            // ── 3. Hidden marker for bot comment ──────────────────────────────
+            const MARKER = `<!-- pr-label-check:${pr.number} -->`;
+
+            // ── 4. Helpers ────────────────────────────────────────────────────
+
+            /** Find existing bot comment on this PR */
+            async function findBotComment() {
+              const comments = await github.paginate(
+                github.rest.issues.listComments,
+                { owner, repo, issue_number: pr.number, per_page: 100 }
+              );
+              return comments.find(
+                c => c.user.login === 'github-actions[bot]' &&
+                     c.body.includes(MARKER)
+              ) || null;
+            }
+
+            /** Post or update bot comment */
+            async function upsertBotComment(body) {
+              const full     = `${body}\n\n${MARKER}`;
+              const existing = await findBotComment();
+              if (!existing) {
+                await github.rest.issues.createComment({
+                  owner,
+                  repo,
+                  issue_number: pr.number,
+                  body: full,
+                });
+                core.info('Created bot comment');
+              } else if (existing.body !== full) {
+                await github.rest.issues.updateComment({
+                  owner,
+                  repo,
+                  comment_id: existing.id,
+                  body: full,
+                });
+                core.info('Updated bot comment');
+              } else {
+                core.info('Bot comment unchanged — skipping update');
+              }
+            }
+
+            /** Delete bot comment if it exists */
+            async function deleteBotComment() {
+              const existing = await findBotComment();
+              if (existing) {
+                await github.rest.issues.deleteComment({
+                  owner,
+                  repo,
+                  comment_id: existing.id,
+                });
+                core.info(`Deleted bot comment ${existing.id}`);
+              }
+            }
+
+            // ── 5. Reminder comment body ──────────────────────────────────────
+            const REMINDER_BODY = `
+            ## ⚠️ Missing: PR Classification Label
+
+            This PR cannot be merged until at least one label is added.
+
+            **How to add a label:**
+            > Go to the **Labels** section on the right panel of this PR → click and select a label.
+
+            **Available labels include:**
+            | Category | Examples |
+            |---|---|
+            | Type | \`bug\`, \`enhancement\`, \`refactor\`, \`hotfix\` |
+            | Priority | \`critical\`, \`high-priority\`, \`low-priority\` |
+            | Status | \`in-progress\`, \`needs-review\`, \`blocked\` |
+            | Other | \`documentation\`, \`security\`, \`dependencies\` |
+
+            > ℹ️ If none of the existing labels fit, create a new one under **Issues → Labels** and apply it to this PR.
+            `;
+
+            // ── 6. Act based on label presence ────────────────────────────────
+            if (!hasLabel) {
+              core.info('No label found on PR — failing check');
+              await upsertBotComment(REMINDER_BODY);
+              core.setFailed(
+                '❌ This PR is missing a classification label. ' +
+                'Please add at least one label from the Labels panel.'
+              );
+            } else {
+              core.info('Label found on PR — check passed');
+              await deleteBotComment();
+              core.info('✅ PR Label Check passed');
+            }
