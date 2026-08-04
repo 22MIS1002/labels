@@ -93,16 +93,6 @@ jobs:
 
             **How to add a label:**
             > Go to the **Labels** section on the right panel of this PR → click and select a label.
-
-            **Available labels include:**
-            | Category | Examples |
-            |---|---|
-            | Type | \`bug\`, \`enhancement\`, \`refactor\`, \`hotfix\` |
-            | Priority | \`critical\`, \`high-priority\`, \`low-priority\` |
-            | Status | \`in-progress\`, \`needs-review\`, \`blocked\` |
-            | Other | \`documentation\`, \`security\`, \`dependencies\` |
-
-            > ℹ️ If none of the existing labels fit, create a new one under **Issues → Labels** and apply it to this PR.
             `;
 
             // ── 6. Act based on label presence ────────────────────────────────
