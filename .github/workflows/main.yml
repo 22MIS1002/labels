@@ -40,7 +40,13 @@ jobs:
             //      **[LABEL]**  →  [LABEL]
             const rawBody    = comment.body || '';
             const normalized = rawBody.replace(/\*\*\[([^\]]+)\]\*\*/g, '[$1]');
- 
+            // ── 3b. Strip code blocks and inline code before token extraction ──
+            //        Prevents false positives from [...] tokens inside code
+            const stripped = normalized
+              .replace(/```[\s\S]*?```/g, '')   // fenced code blocks
+              .replace(/`[^`]*`/g, '')          // inline code
+              .replace(/~~~[\s\S]*?~~~/g, '');  // tilde code blocks
+              
             // ── 4. Extract labels ─────────────────────────────────────────────
             const TYPES           = ['QUESTION', 'DEFECT'];
             const RANKINGS        = ['MAJOR', 'MINOR'];
@@ -56,14 +62,11 @@ jobs:
               'NOT IMPLEMENTABLE',
               'EDITORIAL',
             ];
-            const scanBody  = normalized
-             .replace(/```[\s\S]*?```/g, '')   // fenced code blocks
-             .replace(/`[^`\n]+`/g, '');       // inline code spans
             // Match every [...] token in the normalized body
             const tokenRe = /\[([^\]]+)\]/g;
             const tokens  = [];
             let m;
-            while ((m = tokenRe.exec(scanBody)) !== null) {
+            while ((m = tokenRe.exec(stripped)) !== null) {
               tokens.push(m[1].trim().toUpperCase());
             }
  
