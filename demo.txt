@@ -173,22 +173,15 @@ questions
 
 validation much be done 
 
-Required information or implementation is absent.
+defect
 
-The implementation or documentation is unclear or open to multiple interpretations.
-dsssssssssssssssssssssssssssfffffgd
+classification
 
-wertyuiop
-ertyuiop[
-    dfghkjl
-    bnmnbnvcbv bnvmnb
-    hgdcngb
-]
+ranking 
 
+questions 
 
-iam new to this labels
-
-i need all the labels to be entered 
+validation much be done 
 
 defect
 
