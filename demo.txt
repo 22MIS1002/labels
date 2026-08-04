@@ -55,6 +55,21 @@ The implementation or documentation is unclear or open to multiple interpretatio
 Required information or implementation is absent.
 
 The implementation or documentation is unclear or open to multiple interpretations.
+new demo file for labels 
+
+iam new to this labels
+
+i need all the labels to be entered 
+
+defect
+
+classification
+
+ranking 
+
+questions 
+
+validation much be done 
 
 questions defect
 
@@ -86,73 +101,28 @@ ranking
 
 questions 
 
-Does not follow project coding standards, guidelines, or best practices.
-
-Works correctly but could be improved for readability, maintainability, or quality.
-
-Does not match existing behavior, documentation, or coding conventions.
-
-The implementation or documentation is unclear or open to multiple interpretations.
-
-Required information or implementation is absent.Does not follow project coding standards, guidelines, or best practices.
-
-Works correctly but could be improved for readability, maintainability, or quality.
-
-
-
-
-
-The implementation or documentation is unclear or open to multiple interpretations.
-
-Required information or implementation is absent.
-
-
-Does not follow project coding standards, guidelines, or best practices.
-
-Works correctly but could be improved for readability, maintainability, or quality.
-
-Does not match existing behavior, documentation, or coding conventions.
-
-The implementation or documentation is unclear or open to multiple interpretations.
-
-Required information or implementation is absent.Does not follow project coding standards, guidelines, or best practices.
-
-Works correctly but could be improved for readability, maintainability, or quality.
-
-
-
-Does not follow project coding standards, guidelines, or best practices.
-
-Works correctly but could be improved for readability, maintainability, or quality.
-
-Does not match existing behavior, documentation, or coding conventions.
-
-The implementation or documentation is unclear or open to multiple interpretations.
-
-Required information or implementation is absent.Does not follow project coding standards, guidelines, or best practices.
-
-Works correctly but could be improved for readability, maintainability, or quality.
-
-
-Does not follow project coding standards, guidelines, or best practices.
-
-Works correctly but could be improved for readability, maintainability, or quality.
-
-Does not match existing behavior, documentation, or coding conventions.
-
-The implementation or documentation is unclear or open to multiple interpretations.
-
-Required information or implementation is absent.Does not follow project coding standards, guidelines, or best practices.
-
-Works correctly but could be improved for readability, maintainability, or quality.
-
-
 new demo file for labels 
 
 
 Does not match existing behavior, documentation, or coding conventions.
 
 The implementation or documentation is unclear or open to multiple interpretations.
+
+new demo file for labels 
+
+iam new to this labels
+
+i need all the labels to be entered 
+
+defect
+
+classification
+
+ranking 
+
+questions 
+
+validation much be done 
 
 Required information or implementation is absent.
 
@@ -225,18 +195,6 @@ The implementation or documentation is unclear or open to multiple interpretatio
 Required information or implementation is absent.
 
 
-Does not follow project coding standards, guidelines, or best practices.
-
-Works correctly but could be improved for readability, maintainability, or quality.
-
-Does not match existing behavior, documentation, or coding conventions.
-
-The implementation or documentation is unclear or open to multiple interpretations.
-
-Required information or implementation is absent.Does not follow project coding standards, guidelines, or best practices.
-
-Works correctly but could be improved for readability, maintainability, or quality.
-
 
 
 Does not follow project coding standards, guidelines, or best practices.
@@ -258,20 +216,6 @@ Works correctly but could be improved for readability, maintainability, or quali
 
 Does not match existing behavior, documentation, or coding conventions.
 
-The implementation or documentation is unclear or open to multiple interpretations.
-
-Required information or implementation is absent.Does not follow project coding standards, guidelines, or best practices.
-
-Works correctly but could be improved for readability, maintainability, or quality.
-
-
-Does not match existing behavior, documentation, or coding conventions.
-
-The implementation or documentation is unclear or open to multiple interpretations.
-
-Required information or implementation is absent.
-
-The implementation or documentation is unclear or open to multiple interpretations.
 
 
 iam new to this labels
