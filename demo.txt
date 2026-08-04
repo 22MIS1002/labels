@@ -9,58 +9,7 @@ The implementation or documentation is unclear or open to multiple interpretatio
 
 The implementation or documentation is unclear or open to multiple interpretations.
 
-Required information or implementation is absent.
 
-The implementation or documentation is unclear or open to multiple interpretations.
-
-questions defect
-
-classification
-The implementation or documentation is unclear or open to multiple interpretations.
-
-Required information or implementation is absent.
-
-The implementation or documentation is unclear or open to multiple interpretations.
-
-questions defect
-
-classification
-The implementation or documentation is unclear or open to multiple interpretations.
-
-Required information or implementation is absent.
-
-The implementation or documentation is unclear or open to multiple interpretations.
-
-questions defect
-
-classification
-The implementation or documentation is unclear or open to multiple interpretations.
-
-Required information or implementation is absent.
-
-The implementation or documentation is unclear or open to multiple interpretations.
-
-questions defect
-
-classification
-The implementation or documentation is unclear or open to multiple interpretations.
-
-Required information or implementation is absent.
-
-The implementation or documentation is unclear or open to multiple interpretations.
-
-questions defect
-
-classification
-The implementation or documentation is unclear or open to multiple interpretations.
-
-Required information or implementation is absent.
-
-The implementation or documentation is unclear or open to multiple interpretations.
-
-questions defect
-
-classification
 
 Does not match existing behavior, documentation, or coding conventions.
 
@@ -165,7 +114,52 @@ ranking
 questions 
 
 new demo file for labels 
+The implementation or documentation is unclear or open to multiple interpretations.
 
+Required information or implementation is absent.
+
+The implementation or documentation is unclear or open to multiple interpretations.
+new demo file for labels 
+
+iam new to this labels
+
+i need all the labels to be entered The implementation or documentation is unclear or open to multiple interpretations.
+
+Required information or implementation is absent.
+
+The implementation or documentation is unclear or open to multiple interpretations.
+new demo file for labels 
+
+iam new to this labels
+
+i need all the labels to be entered The implementation or documentation is unclear or open to multiple interpretations.
+
+Required information or implementation is absent.
+
+The implementation or documentation is unclear or open to multiple interpretations.
+new demo file for labels 
+
+iam new to this labels
+
+i need all the labels to be entered The implementation or documentation is unclear or open to multiple interpretations.
+
+Required information or implementation is absent.
+
+The implementation or documentation is unclear or open to multiple interpretations.
+new demo file for labels 
+
+iam new to this labels
+
+i need all the labels to be entered The implementation or documentation is unclear or open to multiple interpretations.
+
+Required information or implementation is absent.
+
+The implementation or documentation is unclear or open to multiple interpretations.
+new demo file for labels 
+
+iam new to this labels
+
+i need all the labels to be entered 
 
 Does not match existing behavior, documentation, or coding conventions.
 
