@@ -12,9 +12,7 @@ permissions:
 
 jobs:
   check-label:
-    runs-on:
-      group: xpf-runners
-      labels: [self-hosted, Linux, x64]
+    runs-on: ubuntu-latest
     steps:
       - name: Check PR Labels
         uses: actions/github-script@v7
