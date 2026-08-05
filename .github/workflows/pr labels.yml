@@ -30,7 +30,8 @@ jobs:
             // ── 2. Check if bug or enhancement label is present ───────────────
             const CORE_LABELS = ['bug', 'enhancement'];
             const hasCoreLabel = prLabels.some(l => CORE_LABELS.includes(l));
-            core.info(`Core label found: ${hasCoreLabel}`);
+            const hasBoth      = CORE_LABELS.every(l => prLabels.includes(l));
+            core.info(`Core label found: ${hasCoreLabel}, Both present: ${hasBoth}`);
 
             // ── 3. Hidden marker for bot comment ──────────────────────────────
             const MARKER = `<!-- pr-label-check:${pr.number} -->`;
@@ -106,8 +107,29 @@ jobs:
             > ℹ️ After adding \`bug\` or \`enhancement\`, you can also add other labels like \`high-priority\`, \`in-progress\`, \`refactor\` etc. based on your requirement.
             `;
 
+            // ── 5b. Both labels reminder body ─────────────────────────────────
+            const BOTH_REMINDER_BODY = `
+            ## ⚠️ Too Many Core Labels: Please Select Only One
+
+            You have added both \`bug\` and \`enhancement\` labels. Please keep only one.
+
+            | Label | Use When |
+            |---|---|
+            | \`bug\` | You are fixing something that is broken |
+            | \`enhancement\` | You are adding a new feature or improvement |
+
+            > ℹ️ Please remove one of the two labels from the **Labels** section on the right panel.
+            `;
+
             // ── 6. Act based on core label presence ──────────────────────────
-            if (!hasCoreLabel) {
+            if (hasBoth) {
+              core.info('Both bug and enhancement found — failing check');
+              await upsertBotComment(BOTH_REMINDER_BODY);
+              core.setFailed(
+                '❌ Both "bug" and "enhancement" labels are present. ' +
+                'Please keep only one.'
+              );
+            } else if (!hasCoreLabel) {
               core.info('No core label found on PR — failing check');
               await upsertBotComment(REMINDER_BODY);
               core.setFailed(
