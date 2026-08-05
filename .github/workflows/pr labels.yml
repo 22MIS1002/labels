@@ -1,15 +1,15 @@
 name: PR Label Check
-
+ 
 on:
   pull_request:
     types:
       - labeled
       - unlabeled
       - opened
-
+ 
 permissions:
   pull-requests: write
-
+ 
 jobs:
   check-label:
     runs-on: ubuntu-latest
@@ -22,22 +22,22 @@ jobs:
             const pr    = context.payload.pull_request;
             const owner = context.repo.owner;
             const repo  = context.repo.repo;
-
+ 
             // ── 1. Get current PR labels ──────────────────────────────────────
             const prLabels = pr.labels.map(l => l.name.toLowerCase());
             core.info(`Labels on PR: ${JSON.stringify(prLabels)}`);
-
+ 
             // ── 2. Check if bug or enhancement label is present ───────────────
             const CORE_LABELS = ['bug', 'enhancement'];
             const hasCoreLabel = prLabels.some(l => CORE_LABELS.includes(l));
             const hasBoth      = CORE_LABELS.every(l => prLabels.includes(l));
             core.info(`Core label found: ${hasCoreLabel}, Both present: ${hasBoth}`);
-
+ 
             // ── 3. Hidden marker for bot comment ──────────────────────────────
             const MARKER = `<!-- pr-label-check:${pr.number} -->`;
-
+ 
             // ── 4. Helpers ────────────────────────────────────────────────────
-
+ 
             /** Find existing bot comment on this PR */
             async function findBotComment() {
               const comments = await github.paginate(
@@ -49,7 +49,7 @@ jobs:
                      c.body.includes(MARKER)
               ) || null;
             }
-
+ 
             /** Post or update bot comment */
             async function upsertBotComment(body) {
               const full     = `${body}\n\n${MARKER}`;
@@ -74,7 +74,7 @@ jobs:
                 core.info('Bot comment unchanged — skipping update');
               }
             }
-
+ 
             /** Delete bot comment if it exists */
             async function deleteBotComment() {
               const existing = await findBotComment();
@@ -87,40 +87,40 @@ jobs:
                 core.info(`Deleted bot comment ${existing.id}`);
               }
             }
-
+ 
             // ── 5. Reminder comment body ──────────────────────────────────────
             const REMINDER_BODY = `
             ## ⚠️ Missing: PR Classification Label
-
+ 
             This PR cannot be merged until either \`bug\` or \`enhancement\` label is added.
-
+ 
             **How to add a label:**
             > Go to the **Labels** section on the right panel of this PR → click and select a label.
-
+ 
             **You must add one of the following:**
-
+ 
             | Label | Use When |
             |---|---|
             | \`bug\` | You are fixing something that is broken |
             | \`enhancement\` | You are adding a new feature or improvement |
-
+ 
             > ℹ️ After adding \`bug\` or \`enhancement\`, you can also add other labels like \`high-priority\`, \`in-progress\`, \`refactor\` etc. based on your requirement.
             `;
-
+ 
             // ── 5b. Both labels reminder body ─────────────────────────────────
             const BOTH_REMINDER_BODY = `
             ## ⚠️ Too Many Core Labels: Please Select Only One
-
+ 
             You have added both \`bug\` and \`enhancement\` labels. Please keep only one.
-
+ 
             | Label | Use When |
             |---|---|
             | \`bug\` | You are fixing something that is broken |
             | \`enhancement\` | You are adding a new feature or improvement |
-
+ 
             > ℹ️ Please remove one of the two labels from the **Labels** section on the right panel.
             `;
-
+ 
             // ── 6. Act based on core label presence ──────────────────────────
             if (hasBoth) {
               core.info('Both bug and enhancement found — failing check');
